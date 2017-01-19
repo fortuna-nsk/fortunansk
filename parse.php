@@ -4,10 +4,10 @@
 	require 'application/modules/phpthumb/ThumbLib.inc.php';
 	require_once 'application/includes/config.php';
 
-ini_set('date.timezone', 'Asia/Novosibirsk');
-ini_set('session.save_path', '/var/www/fortuna/sessions');
-ini_set('session.gc_maxlifetime', 3600000);
-ini_set('session.cookie_lifetime', 3600000);
+    ini_set('date.timezone', 'Asia/Novosibirsk');
+    ini_set('session.save_path', '/var/www/fortuna/sessions');
+    ini_set('session.gc_maxlifetime', 3600000);
+    ini_set('session.cookie_lifetime', 3600000);
 
 	$db1 = mysql_connect($db_host,$db_user,$db_pass, true);
 	mysql_select_db($db_name, $db1);
