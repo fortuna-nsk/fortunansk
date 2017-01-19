@@ -1,0 +1,14 @@
+/images/*
+/lib/*
+/sxd/*
+/sessions/*
+/tmce4/*
+/fancyBox/*
+/upload/*
+/logs/*
+/parsing/*
+/application/includes/config.php
+/application/modules/*
+htaccess*
+/js/tinymce/*
+/parsing_mail/*
