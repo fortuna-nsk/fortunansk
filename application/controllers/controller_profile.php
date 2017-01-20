@@ -367,7 +367,8 @@ class Controller_Profile extends Controller
 	
 	function action_rules()
 	{
-		$this->view->generate('profile_view.php', 'template_view.php', null);
+        $data = $this->model->get_data_rules();
+		$this->view->generate('profile_view.php', 'template_view.php', $data);
 	}
 	
 	function action_contacts()

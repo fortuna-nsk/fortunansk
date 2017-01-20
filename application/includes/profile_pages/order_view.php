@@ -5,7 +5,10 @@
 			<p>Страница временно не доступна. Ведутся работы.</p>
 		</div>
 	</div>
-<?exit;}*/?>
+<?exit;}*/
+
+
+$orderFile = "application/includes/txt/orders.txt"; ?>
 <script type="text/javascript">
 	$(function(){
 		if($("form#order_send").attr("action") == ""){
@@ -81,50 +84,53 @@ function ShowFields(type, objStr, show){
 }
 </script>
 <?$form_visible =  intval($data[0]['order_access']) == 1 || intval($_SESSION['order_access']) == 1;?>
+<?if($_SESSION['admin']==1){?>
+    <script src="tmce4/tinymce.min.js" type="text/javascript" charset="utf-8"></script>
+    <script type="text/javascript">
+        tinymce.PluginManager.load('moxiecut', "/tmce4/plugins/moxiecut/plugin.min.js");
+        tinymce.init({
+            language: 'ru',
+            selector: '#rules',
+            plugins: [
+                'advlist autolink link image lists charmap print preview hr anchor pagebreak spellchecker',
+                'searchreplace wordcount visualblocks visualchars code fullscreen insertdatetime media nonbreaking',
+                'save table contextmenu directionality emoticons template paste textcolor moxiecut'
+            ],
+            toolbar: 'insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image | print preview media fullpage | forecolor backcolor emoticons',
+            height: 300,
+        });
+    </script>
+<?}?>
+
 <div class="col-xs-9">
-	<legend>Два способа оплаты</legend>
-	<div class="col-xs-12 deployed">
-		<table style = "width: 95%; padding: 5px;">
-			<tbody>
-				<tr>
-					<th style = "color:red; font-size: 18px; text-align: center" /> Карта Tinkoff
-					<th style = "color:red; font-size: 18px; text-align: center"  /> Qiwi-кошелёк
-				<tr>
-					<td style = "width: 50%; padding: 15px; border: solid 2px #eee;vertical-align: top;">
-						ОДИН ИЗ ВАРИАНТОВ ПОПОЛНИТЬ БАЛАНС НА ФОРТУНЕ МОЖНО ПУТЕМ ПЕРЕВОДА ДЕНЕГ С ВАШЕЙ ЛЮБОЙ КАРТЫ НА НАШУ 
-						КАРТУ ТИНЬКОФФ ВОТ ЕЕ НОМЕР: 
-						<br/><span style="color: #33B100;font-weight: bolder;">4377 7237 4136 4784</span>  <br/>
-						ДЛЯ ЭТОГО НУЖНО ПЕРЕЙТИ НА ЗАЩИЩЕННУЮ СТРАНИЦУ ВОТ ЭТУ: 
-						<br/><a target = "_blank" href = "https://www.tinkoff.ru/payments/card-to-card" style = "font-size: 15px; color: blue">
-						 https://www.tinkoff.ru/payments/card-to-card </a><br/>
 
-						ВПИСАТЬ СВОЮ КАРТУ ПОТОМ НАШУ ОТМЕТИТЬ СУММУ КОТОРУЮ ЖЕЛАЕТЕ ПЕРЕВЕСТИ 
-						 И НАЖАТЬ КНОПКУ «ПЕРЕВЕСТИ» ПОСЛЕ ЗАХОДИТЕ НА ССЫЛКУ «ОТПРАВКА ДАННЫХ ОБ ОПЛАТЕ» И ВПИСЫВАЕТЕ ВСЕ ДАННЫЕ О ПЕРЕВОДЕ
-						 И ОТПРАВЛЯЕТЕ! ВСЕ БАЛАНС ПОПОЛНЕН И МОЖИТЕ ПЕРЕХОДИТЬ ПО ССЫЛКЕ «ПРОДЛЕНИЕ ДОСТУПА» 
-						 ГДЕ ВЫБИРАЕТЕ ЧТО ЖЕЛАЕТЕ ПРОДЛИТЬ И ПОДЛИВАЕТЕ!
-
-						<br/>
-						<!--<a target = "_blank" href = "https://www.tinkoff.ru/payments/card-to-card" style = "font-size: 15px; color: blue">Оплата с карты на карту</a> -->
-					</td>
-					<td style = "width: 50%; padding: 15px; border: solid 2px #eee;vertical-align: top;">
-						ЕЩЕ ОДИН СПОСОБ УЖЕ ЗНАКОМЫЙ МНОГИМ. ЭТО ПУТЕМ ПОПОЛНЕНИЯ НАШЕГО КИВИ КОШЕЛЬКА ВОТ ЕГО НОМЕР:
-						 <br/><span style="color: #33B100;font-weight: bolder;">89139179516</span><br/> ЭТО МОЖНО СДЕЛАТЬ РАЗНЫМИ СПОСОБАМИ! ПЕРЕВЕСТИ СО СВОЕГО КИВИ,
-						  ПЕРЕВЕСТИ ЧЕРЕЗ САЛОНЫ СВЯЗИ СВЯЗНОЙ И ЕВРОСЕТЬ, А ТАКЖЕ ПЕРЕВЕСТИ ЧЕРЕЗ ТЕРМИНАЛЫ КИВИ.
-						   ВОТ ССЫЛКА ДЛЯ ПЕРЕВОДА СО СВОЕГО КИВИ:
-						   <br/><a target = "_blank" href = "https://w.qiwi.com/payment/main.action" style = "font-size: 15px; color: blue"> w.qiwi.com/payment/main.action</a><br/>
-						    ВОТ ССЫЛКА ДЛЯ АЛЬТЕРНАТИВНЫХ СПОСОБОВ ПЕРЕВОДА: 
-						    <br/><a target = "_blank" href = "https://w.qiwi.com/replenish.action " style = "font-size: 15px; color: blue">w.qiwi.com/replenish.action </a><br/>
-						    ПОСЛЕ ПЕРЕВОДА ЗАХОДИМ В РАЗДЕЛ НА ФОРТУНЕ «ОТПРАВКА ДАННЫХ ОБ ОПЛАТЕ» И ОТПРАВЛЯЕМ ВСЕ НЕОБХОДИМЫЕ ДАННЫЕ О СОВЕРШЕННОМ ПЛАТЕЖЕ. 
-						    КАК ТОЛЬКО ОТПРАВИТЕ БАЛАНС АВТОМАТОМ ПОПОЛНИТЬСЯ И МОЖНО ПЕРЕЙТИ К ПОСЛЕДНЕМУ ЭТАПУ ЭТО «ПРОДЛЕНИЕ ДОСТУПА» ГДЕ ВЫБИРАЕТЕ ЧТО ЖЕЛАЕТЕ ПРОДЛИТЬ И ПОДЛИВАЕТЕ! 
-						    МИНУС ДАННОГО ПЕРЕВОДА В ТОМ ЧТО НУЖНО ПЛАТИТЬ БОЛЬШЕ ЧЕМ ВАМ ТРЕБУЕТСЯ ДЛЯ ПРОДЛЕНИЯ Т.К. ЕСТЬ КОМИССИИ ПРИ ВНЕСЕНИИ
-						    И НА САМОЙ ФОРТУНЕ УДЕРЖИВАЕТСЯ МИНИМУМ 20 РУБ. ПРИ ЗАЧИСЛЕНИИ ЗА ОБНАЛИЧИВАНИЕ. 
-						ЕСЛИ СУММА БОЛЬШЕ ЧЕМ 400Р ТО ЛУЧШЕ ПЕРЕВОД ДЕЛАТЬ С КАРТЫ НА КАРТУ.
-
-					</td>
-				</tr>	
-			</tbody>
-		</table>
-		<br/>
+    <legend>Отправка данных об оплате <?if($_GET["task"]=="login") echo "АН «".$data[1]."»";?></legend>
+    <div class="col-xs-12" style="margin-top:15px">
+        <?if($_SESSION['admin']==1){?>
+            <?if(isset($_POST['content']) && $_GET['edit']==1){
+                $fp = fopen($orderFile, "wa"); // Открываем файл в режиме записи
+                fwrite($fp, $_POST['content']); // Запись в файл
+                fclose($fp); //Закрытие файла
+            }?>
+            <div data-id="text" class="hidden">
+                <form method="post" action="?task=profile&action=order&edit=1">
+                    <textarea id="rules" name="content"><?readfile($orderFile)?></textarea>
+                    <div class="col-xs-12" style="text-align: right;margin-top:15px">
+                        <a href="?task=profile&action=order" class="btn btn-default">Отмена</a>
+                        <button type="submit" class="btn btn-success">Отправить</button>
+                    </div>
+                </form>
+            </div>
+        <?}?>
+        <div data-id="text">
+            <?readfile($orderFile);?>
+            <?if($_SESSION['admin']==1){?>
+                <div class="col-xs-12" style="text-align: right;margin-top:15px">
+                    <button type="button" class="btn btn-primary" onClick="$('[data-id=text]').toggleClass('hidden')">Редактировать</button>
+                </div>
+            <?}?>
+        </div>
+    </div>
 		<!--<p>Оплата производится на карту сбербанка номер: <span style="color: #33B100;font-weight: bolder;">4276 8440 1970 6084</span> которая привязана к номеру телефона 89139179516 или на киви кошелек: <span style="color: #33B100;font-weight: bolder;">9139179516</span></p> 
 		<p/>С 17 декабря временно оплата принемается только на киви кошелек его номер<span style="color: #33B100;font-weight: bolder;"> 89139179516</span>.<br/>
 		При оплате учитывайте что необходимо учитывать комиссию за отправку и обналичивание.<br/>
@@ -136,12 +142,13 @@ function ShowFields(type, objStr, show){
 			echo "<p style='color: rgb(216, 42, 42);'>Ваш доступ деактивирован, т.к. закончилась абонентская плата. Рекомендуемый минимальный платеж по аренде: ".($data['duty'] + $data['subscription'] - $data['balance'] + 50)."р.. Все оплаченные излишки остаются на вашем балансе и могут быть использованы в любое время.<br /><br />После отправки данных об оплате, Вам потребуется заново ввести логин и пароль, чтобы выбрать и активировать нужные Вам услуги, которые будут доступны в пределах вашего баланса. После активации услуг опять заходите под логином и паролем, пользуетесь ресурсом. Те кому требуется дополнительные премиумы, могут их активировать из ЛК раздел 'Продление доступа, изменение услуг'.</p>";
 		}?>
 	</div>
-	<legend>Отправка данных об оплате <?if($_GET["task"]=="login") echo "АН «".$data[1]."»";?></legend>
 		<?if(!$form_visible){?>
 			<div class="col-xs-12 deployed">
 				<p style="color:red">Форма оплаты будет доступна после проверки администратором предыдущего платежа.</p>
 			</div>
 		<?}?>
+
+    <div class="col-xs-8" style="margin-top:15px">
 		<form id="order_send" method="POST" action="<?if($form_visible) echo "?task=profile&action=order_send";?>">
 			<div class="col-xs-2 deployed">
 				<label class="signature">Дата платежа</label>
@@ -231,7 +238,8 @@ function ShowFields(type, objStr, show){
 			<input type="hidden" name="company_id" value="<?echo $_SESSION['company_id'];?>">
 			<input type="hidden" name="active" value="1">
 	<?}unset($form_visible);?>
-		</form>	
+		</form>
+    </div>
 	<?if($_GET["task"]=="profile"){?>
 		<div class="col-xs-12 deployed">
 			<legend>Список платежей</legend>	

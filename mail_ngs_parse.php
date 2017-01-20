@@ -381,7 +381,7 @@ function createSdamQueryString($attach = ''){
                             VALUES ('{$user_id}',    1,      1,          '{$typeId}', '{$parentId}', '{$live_point}', '{$dis}', '{$street}', '{$house}', '{$orientir}', {$sq_all}, {$sq_live}, {$sq_k}, '{$planning}', '{$ap_layout}', '{$wc_type}', '{$val_bal}', '{$val_lodg}', '{$tel}', '{$furn}', '{$refrig}', '{$own_type}', '{$y_done}', {$floor}, {$floor_count}, '{$wall_type}',     '{$text}', '{$price}', '{$torg}', '{$link}', NOW(),       NOW(),          '{$contact_name}', '{$contact_tel}', '{$tel_comment}', '{$contact_email}', '{$photos}');";
 }
 
-$mbox = imap_open('{imap.mail.ru:143}/NGS', "89139552167@mail.ru", "BLKJf934tnkks4(nn") or die("can't connect: " . imap_last_error());
+$mbox = imap_open('{imap.mail.ru:143}/NGS', "89139552167@mail.ru", "!KmcnznNtv(Rjuj@<jzncz") or die("can't connect: " . imap_last_error());
 $MC = imap_check($mbox);
 // Fetch an overview for all messages in tmp
 $result = imap_fetch_overview($mbox,"1:{$MC->Nmsgs}",0);

@@ -379,7 +379,7 @@ function firstAttachments($parts, $mess_num, $mbox){
 }
 
 
-$mbox = imap_open('{imap.mail.ru:143}/tst', "vint.br@mail.ru", "0703Vitaly") or die("can't connect: " . imap_last_error());
+$mbox = imap_open('{imap.mail.ru:143}/tst', "vint.br@mail.ru", "!Vfccf@Nht,etn)Yfghfdktybz") or die("can't connect: " . imap_last_error());
 $MC = imap_check($mbox);
 // Fetch an overview for all messages in tmp
 $result = imap_fetch_overview($mbox,"1:{$MC->Nmsgs}",0);

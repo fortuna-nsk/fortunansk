@@ -2,16 +2,26 @@
 class Model_Profile extends Model
 {
 	public $query_users = "re_user INNER JOIN re_people ON re_user.people_id = re_people.id	INNER JOIN re_company ON re_people.company_id = re_company.id INNER JOIN re_access_date_end ON re_people.company_id = re_access_date_end.company_id";
-	
+
+    private $text_file = "application/includes/txt/rules.txt";
+
 	public function get_data()
-	{	
+	{
 		mysql_set_charset( 'utf8' );
-		$query = "SELECT * FROM `re_data` where ((`user_id` = '". $_SESSION['user'] ."') AND (`active` = '1'))";		
+		$query = "SELECT * FROM `re_data` where ((`user_id` = '". $_SESSION['user'] ."') AND (`active` = '1'))";
 		$q_res = mysql_query($query);
 		$data = array();
 		$q_num = mysql_num_rows($q_res);
 		return $data_res;
 	}
+
+    public function get_data_rules()
+    {
+        if(isset($_SESSION['people_id'])){
+            $data = $this->text_file;
+            return $data;
+        }
+    }
 
 	public function get_data_type()
 	{
