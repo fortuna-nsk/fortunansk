@@ -1,118 +1,44 @@
-﻿<div class='col-xs-9'>
-	<legend>Тарифы</legend>
-	 <p align="center" style = 'color:red;font-weight:bold; font-size:15px'> После оплаты через Qiwi или Сбербанк 
- 	вам необходимо в обязательном порядке отправить данные об оплате через форму на сайте, не позднее 1 суток,
- 	а также после отправки подтверждения с сайта, по истечении 3-х суток удостовериться что администратор без ошибок произвел продление вашего логина.<br>
- 	<br>В случае обнаружения каких-либо неточностей, в срочном порядке связаться с администратором для их устранения.<br><br>
- 	Все платежи, произведенные с игнорированием данных требований не зачисляются.</p>
-<table align = 'center' border = '1' width = '90%'>
-	
-	<tr>
-		<td align = 'center'><h4>
-		Раздел
-		</h4></td>
-		<td align = 'center'><h4>
-		Описание 
-		</h4></td>
-		<td align = 'center'><h4>
-		Стоимость
-		</h4></td>
-	</tr>
-	<tr>
-	</tr>
-	<tr>
-		<td align = 'center'><h4>
-		Доступ к вариантам по аренде.
-		</h4></td>
-		<td align = 'center'><h4><font color = "green">
-			Размещение и просмотр объявлений от агентств и хозяев. Предполагает два контактных телефона и доступ с одного айпи адреса, (если требуется больше номеров, каждый последующий после второго плюс 100 рублей к аб.плате. Если требуется больше айпи адресов то плюс размер аб. платы за каждый дополнительный айпи адрес.).
-			 </font></h2></td>
-		<td align = 'center'><h4>
-		400 руб./мес.</h4>
-		</td>
-	</tr>
-<tr>
-</tr>
-	<tr>
-		<td align = 'center'><h4>
-		Доступ к вариантам по продаже.
-		</h4></td>
-		<td align = 'center' ><h4><font color = "green">Размещение и просмотр сообщений от агентств и хозяев. 
-		</font>
-		</h4>
-		</td>
-		<td align = 'center'><h4>
-		200 руб./мес.
-		</h4>
-		</td>
-	</tr>
-	
-	<tr>
-		<td align = 'center'><h4>
-		Регистрация логина
-		</h4></td>
-		<td align = 'center'><h4><font color = "green">Подключение к ресурсу, также переподключение действующего логина по другом почтовому адресу.
-		</font>
-		</h4>
-		</td>
-		<td align = 'center'><h4>
-		1000 руб./разово
-		</h4>
-		</td>
-	</tr>
-	<tr>
-		<td align = 'center'><h4>
-		Kорректировка
-		</h4>
-		</td>
-		<td align = 'center' ><h4><font color = "green">Kорректировка названия агентства, имен и пароля - бесплатно!<br/> Удаление номера - бесплатно, замена или добавление номера платно.
-		</font>
-		</h4>
-		</td>
-		<td align = 'center'><h4>
-		100 руб./разово 
-		</h4>
-		</td>
-	</tr>	
-	<tr>
-		<td align = 'center'><h4>
-		Замена IP-адреса
-		</h4>
-		</td>
-		<td align = 'center' ><h4><font color = "green">Kорректировка IP-адреса, замена, установка нового<br/> 
-		</font>
-		</h4>
-		</td>
-		<td align = 'center'><h4>
-		500 руб./разово 
-		</h4>
-		</td>
-	</tr>	
-	<tr>
-		<td align = 'center'><h4>
-		Доп.Премиум
-		</h4>
-		</td>
-		<td align = 'center' ><h4><font color = "green">Дополнительные статусы премиум при отправке сообщений<br/> 
-		</font>
-		</h4>
-		</td>
-		<td align = 'center'><h4>
-		200 руб./ 5шт.
-		</h4>
-		</td>
-	</tr>	
-	
-	<tr> 
-		<td align = 'center' colspan = '3'><h4><font color = "red">
-	Логин, находящийся в беспрерывной блокировке 30дней, удаляется и повторная регистрация будет стоить 1000р. (если вы уезжаете надолго и не хотите чтобы ваш логин удалили нужно заранее предупредить администратора по телефону)
-	</font>
-	</h4>
-		</td>
-	</tr>
-	
-	
-	
-</table>
-
+﻿<?if($_SESSION['admin']==1){?>
+    <script src="tmce4/tinymce.min.js" type="text/javascript" charset="utf-8"></script>
+    <script type="text/javascript">
+        tinymce.PluginManager.load('moxiecut', "/tmce4/plugins/moxiecut/plugin.min.js");
+        tinymce.init({
+            language: 'ru',
+            selector: '#tariffs',
+            plugins: [
+                'advlist autolink link image lists charmap print preview hr anchor pagebreak spellchecker',
+                'searchreplace wordcount visualblocks visualchars code fullscreen insertdatetime media nonbreaking',
+                'save table contextmenu directionality emoticons template paste textcolor moxiecut'
+            ],
+            toolbar: 'insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image | print preview media fullpage | forecolor backcolor emoticons',
+            height: 300,
+        });
+    </script>
+<?}?>
+<div class="col-xs-9" style="margin-top:15px">
+    <legend>Тарифы</legend>
+    <?if($_SESSION['admin']==1){?>
+        <?if(isset($_POST['content']) && $_GET['edit']==1){
+            $fp = fopen($data, "wa"); // Открываем файл в режиме записи
+            fwrite($fp, $_POST['content']); // Запись в файл
+            fclose($fp); //Закрытие файла
+        }?>
+        <div data-id="text" class="hidden">
+            <form method="post" action="?task=profile&action=tariffs&edit=1">
+                <textarea id="tariffs" name="content"><?readfile($data)?></textarea>
+                <div class="col-xs-12" style="text-align: right;margin-top:15px">
+                    <a href="?task=profile&action=tariffs" class="btn btn-default">Отмена</a>
+                    <button type="submit" class="btn btn-success">Отправить</button>
+                </div>
+            </form>
+        </div>
+    <?}?>
+    <div data-id="text">
+        <?readfile($data);?>
+        <?if($_SESSION['admin']==1){?>
+            <div class="col-xs-12" style="text-align: right;margin-top:15px">
+                <button type="button" class="btn btn-primary" onClick="$('[data-id=text]').toggleClass('hidden')">Редактировать</button>
+            </div>
+        <?}?>
+    </div>
 </div>
