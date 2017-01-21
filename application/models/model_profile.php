@@ -4,6 +4,7 @@ class Model_Profile extends Model
 	public $query_users = "re_user INNER JOIN re_people ON re_user.people_id = re_people.id	INNER JOIN re_company ON re_people.company_id = re_company.id INNER JOIN re_access_date_end ON re_people.company_id = re_access_date_end.company_id";
 
     private $text_file = "application/includes/txt/rules.txt";
+    private $text_file_tarifs = "application/includes/txt/tariffs.txt";
 
 	public function get_data()
 	{
@@ -19,6 +20,14 @@ class Model_Profile extends Model
     {
         if(isset($_SESSION['people_id'])){
             $data = $this->text_file;
+            return $data;
+        }
+    }
+
+    public function get_data_tarifs()
+    {
+        if(isset($_SESSION['people_id'])){
+            $data = $this->text_file_tarifs;
             return $data;
         }
     }
