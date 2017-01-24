@@ -31,7 +31,7 @@
 	/**
 	 * Ночное обнуление
 	 */
-    if(isset($_GET['night_null']) && $_GET['night_null'] == 1){
+    if(isset($argv[1]) && $argv[1] = 'night_null'){
 		$res = mysql_query("DELETE FROM `re_session` WHERE 1", $db1);
 		$dh = opendir($sessionDir);
 		while ($file = readdir($dh)){
