@@ -8,10 +8,7 @@
 	mysql_query("SET CHARACTER SET utf8", $db1);
 	mysql_query("SET NAMES utf8", $db1);
 	mysql_query("SET time_zone = '+07:00'", $db1);
-
-	$datePhotoLimitBreak = date("His", strtotime("+0 hours"));
 	$sessionDir = '/var/www/fortuna/sessions/';
-
 	/**
 	 * проверка активности раз в 3 часа
 	 */
@@ -23,24 +20,18 @@
 				  		 AND s.people_id = p.id 
 				  		 AND DATE_FORMAT(DATE_ADD(NOW(), INTERVAL -3 HOUR), '%Y%m%d%H%i%s') > DATE_FORMAT(s.date_update, '%Y%m%d%H%i%s') 
 				  		 AND company_name!=''";
-
 	$res = mysql_query($querySession);
 	if (mysql_num_rows($res) > 0){		
 	  while ($session = mysql_fetch_array($res)){ 
-	  	
-	  	echo (" " . $sessionDir."sess_".$session['name'] . " " . $session['date_update'] . " {$session['id']} \n\r");
-
-		mysql_query("DELETE FROM `re_session` WHERE `id` = {$session['id']}");
-	  	
+    	mysql_query("DELETE FROM `re_session` WHERE `id` = {$session['id']}");
 	  	@unlink($sessionDir."sess_".$session['name']);
 	  }
-
 	}
 
 	/**
 	 * Ночное обнуление
 	 */
-	if($datePhotoLimitBreak > 020000 AND $datePhotoLimitBreak < 050000 ){
+    if(isset($_GET['night_null']) && $_GET['night_null'] == 1){
 		$res = mysql_query("DELETE FROM `re_session` WHERE 1", $db1);
 		$dh = opendir($sessionDir);
 		while ($file = readdir($dh)){
@@ -49,4 +40,5 @@
 	    }
 		$res = mysql_query("UPDATE `re_people` SET `photo_limit_used` =  0 WHERE 1", $db1);
 	}
+
 ?>
