@@ -433,7 +433,7 @@ function GetCoordsForList(objectsInsidePolygon)
 
 	coordsForList = "";
 	for(var o=0; o<countObjInPol; o++){
-		coordsForList += objectsInsidePolygon._Ol[o].geometry._yc + "||";
+        coordsForList += objectsInsidePolygon._Ll[o].geometry._kc + "||";
 	}
 	coordsForList = coordsForList.substring(0, coordsForList.length-2);
 }
