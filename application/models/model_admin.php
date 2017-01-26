@@ -105,7 +105,7 @@ class Model_Admin extends Model
 			$data = DB::Select("re_company.id, re_company.fortuna_mid, re_company.company_name, re_access_date_end.rent_date_end, re_access_date_end.sell_date_end, re_access_date_end.pay_parse_date_end", "re_company INNER JOIN re_access_date_end ON re_company.id=re_access_date_end.company_id", "company_name like '%".$_POST['an']."%' ORDER BY company_name");
 			return $data;
 		}else{
-			header("Location: http://". $_SERVER['SERVER_NAME']."/?task=login&amp;action=logout");
+			header("Location: http://". $_SERVER['SERVER_NAME']."/?task=login&action=logout");
 		}
 	}
 	
@@ -115,7 +115,7 @@ class Model_Admin extends Model
 			$data = DB::Select("re_company.id, re_company.fortuna_mid, re_company.company_name, re_access_date_end.rent_date_end, re_access_date_end.sell_date_end, re_access_date_end.pay_parse_date_end", "re_user INNER JOIN re_people ON re_user.people_id = re_people.id	INNER JOIN re_company ON re_people.company_id = re_company.id INNER JOIN re_access_date_end ON re_people.company_id = re_access_date_end.company_id", "login = '".$_POST['login']."' ORDER BY parent");
 			return $data;
 		}else{
-			header("Location: http://". $_SERVER['SERVER_NAME']."/?task=login&amp;action=logout");
+			header("Location: http://". $_SERVER['SERVER_NAME']."/?task=login&action=logout");
 		}
 	}
 	
@@ -125,7 +125,7 @@ class Model_Admin extends Model
 			$data = DB::Select("re_company.id, re_company.fortuna_mid, re_company.company_name, re_access_date_end.rent_date_end, re_access_date_end.sell_date_end, re_access_date_end.pay_parse_date_end", "re_user INNER JOIN re_people ON re_user.people_id = re_people.id	INNER JOIN re_company ON re_people.company_id = re_company.id INNER JOIN re_access_date_end ON re_people.company_id = re_access_date_end.company_id", "phone = '".$_POST['phone']."' OR phone_addon like '%".$_POST['phone']."%' OR phone_for_archive like '".$_POST['phone']."' OR phone_archive like '".$_POST['phone']."' ORDER BY parent");
 			return $data;
 		}else{
-			header("Location: http://". $_SERVER['SERVER_NAME']."/?task=login&amp;action=logout");
+			header("Location: http://". $_SERVER['SERVER_NAME']."/?task=login&action=logout");
 		}
 	}
 	
