@@ -44,7 +44,7 @@ mysql_query("SET CHARACTER SET utf8");
 mysql_query("SET NAMES utf8"); 
 mysql_query("SET time_zone = '+07:00'");
 
-if(!isset($_SESSION) && isset($_GET['task'])){
+if(!isset($_SESSION['people_id']) && isset($_GET['task'])){
 	header("Location: http://". $_SERVER['SERVER_NAME']);
 }
 

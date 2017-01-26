@@ -18,9 +18,11 @@ if($data[0]=="ex_of_acc"){
 		unset($data, $_SESSION);
 	}
 	echo "</div>";
-}else(count($data)==1 && (!isset($_GET) || $_GET['task']=="login") ){
+}elseif(count($data)==1 && (!isset($_GET) || $_GET['task']=="login") ){
 
 	echo "<input type='hidden' id='alert' value='".$data."'>";
 	
-	}
+}else{
+    echo "<input type='hidden' id='alert' value='".$data."'>";
+   }
 ?>
