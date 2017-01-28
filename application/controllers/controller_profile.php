@@ -291,14 +291,20 @@ class Controller_Profile extends Controller
 		$data = $this->model->send_messages();
 		$this->view->generate('profile_view.php', 'template_view.php', $data);
 	}
-	
-	function action_order()
-	{
-		$data = $this->model->order();
-		$this->view->generate('profile_view.php', 'template_view.php', $data);
-	}
-	
-	function action_order_send()
+
+    function action_order()
+    {
+        $data = $this->model->order();
+        $this->view->generate('profile_view.php', 'template_view.php', $data);
+    }
+
+    function action_order_txt()
+    {
+        $data = $this->model->order_txt();
+        $this->view->generate('profile_view.php', 'template_view.php', $data);
+    }
+
+    function action_order_send()
 	{
 		$data = $this->model->order_send();
 		$this->view->generate('profile_view.php', 'template_view.php', $data);

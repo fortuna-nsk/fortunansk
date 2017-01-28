@@ -172,7 +172,7 @@
 				$num_or_mail = $_POST['phone'];
 				$check_date = date("d.m.Y H:i:s");?>
 				<div class='col-xs-12 info center' style = 'width:80%'>
-					<h3 style='color:red'>ВНИМАНИЕ! Риелтора с <?echo $search_str;?> нет в базе!</h1>
+					<h3 style='color:red'>ВНИМАНИЕ! Риелтора с <?echo $search_str;?> нет в базе!</h3>
 					<div>Если вам известно, каким именем и агенством представляется человек с этого номера сообщите нам, мы примем меры
 						<div class='col-xs-12 deployed'>
 							<textarea class='form-control' name='check_rielter_comment' placeholder='пояснение' rows='5' cols='80' ></textarea>

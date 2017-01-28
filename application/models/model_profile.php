@@ -5,6 +5,7 @@ class Model_Profile extends Model
 
     private $text_file = "application/includes/txt/rules.txt";
     private $text_file_tarifs = "application/includes/txt/tariffs.txt";
+    private $text_file_orders = "application/includes/txt/orders.txt";
 
 	public function get_data()
 	{
@@ -975,6 +976,10 @@ class Model_Profile extends Model
 		}
 	}
 	
+	public function order_txt(){
+			return $this->text_file_orders;
+    }
+
 	public function order(){
 		if($_SESSION["parent"] == 0){
 			$data = DB::Select("*", "re_order", "company_id='".$_SESSION['company_id']."' ORDER BY id DESC");

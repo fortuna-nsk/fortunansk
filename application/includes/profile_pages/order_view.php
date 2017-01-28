@@ -6,15 +6,15 @@
 		</div>
 	</div>
 <?exit;}*/
+ ?>
 
 
-$orderFile = "application/includes/txt/orders.txt"; ?>
 <script type="text/javascript">
 	$(function(){
 		if($("form#order_send").attr("action") == ""){
 			$("form#order_send .form-control").attr("disabled", "");
 		}
-		
+
 		//отображение доп. полей взависимости от типа платежа
 		$(document).on("change", "[name=order_type]", function(){
 			var dataId = $(this).val(),
@@ -23,30 +23,30 @@ $orderFile = "application/includes/txt/orders.txt"; ?>
 				ShowFields(anotherId[dataId], "[name=wallet_num]", 0);
 				ShowFields(anotherId[dataId], "select", 0);
 				ShowFields(anotherId[dataId], "textarea", 0);
-				ShowFields(dataId, "select", 1);							
-			}else{				
+				ShowFields(dataId, "select", 1);
+			}else{
 				ShowFields("sber", ":visible", 0);
-				ShowFields("qiwi", ":visible", 0);				
+				ShowFields("qiwi", ":visible", 0);
 			}
 			$("textarea").removeAttr("disabled");
 		});
 		$(document).on("change", "[name=order_place]", function(){
 			var val = $(this).val();
 			if(val == "wallet"){
-				
+
 				ShowFields("sber", "[data-name=wallet_num]", 0);
 				ShowFields("qiwi", "[name=wallet_num]", 1);
 				$("div[data-id=qiwi]").has("textarea").show();
 
 			}else if(val == "terminal" || val == "euroset"){
-				
+
 				ShowFields("sber", "[data-name=wallet_num]", 0);
 				ShowFields("qiwi", "[name=wallet_num]", 0);
 				$("div[data-id=qiwi]").has("textarea").show();
 
 			}else if(val == "mobil" || val == "lk" || val == "bankomat"){
 				ShowFields("qiwi", "[name=wallet_num]", 0);
-				ShowFields("sber", "[data-name=wallet_num]", 1);				
+				ShowFields("sber", "[data-name=wallet_num]", 1);
 				$("div[data-id=qiwi]").has("textarea").hide();
 			}else{
 				ShowFields("sber", "[data-name=wallet_num]", 0);
@@ -83,25 +83,9 @@ function ShowFields(type, objStr, show){
 	}
 }
 </script>
-<?$form_visible =  intval($data[0]['order_access']) == 1 || intval($_SESSION['order_access']) == 1;?>
-<?if($_SESSION['admin']==1){?>
-    <script src="tmce4/tinymce.min.js" type="text/javascript" charset="utf-8"></script>
-    <script type="text/javascript">
-        tinymce.PluginManager.load('moxiecut', "/tmce4/plugins/moxiecut/plugin.min.js");
-        tinymce.init({
-            language: 'ru',
-            selector: '#rules',
-            plugins: [
-                'advlist autolink link image lists charmap print preview hr anchor pagebreak spellchecker',
-                'searchreplace wordcount visualblocks visualchars code fullscreen insertdatetime media nonbreaking',
-                'save table contextmenu directionality emoticons template paste textcolor moxiecut'
-            ],
-            toolbar: 'insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image | print preview media fullpage | forecolor backcolor emoticons',
-            height: 300,
-        });
-    </script>
-<?}?>
+<?
 
+$form_visible =  intval($data[0]['order_access']) == 1 || intval($_SESSION['order_access']) == 1;?>
 <div class="col-xs-9">
 
     <legend>Отправка данных об оплате <?if($_GET["task"]=="login") echo "АН «".$data[1]."»";?></legend>

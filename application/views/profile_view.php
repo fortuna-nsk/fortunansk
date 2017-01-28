@@ -56,6 +56,7 @@ if($_GET['action'] == "messages"){
 	include "application/views/lists_view.php";
 }else if($_GET['action'] == "group_setting"){
 	include "application/includes/profile_pages/group_setting_view.php";
+}else if($_GET['action'] == "order_txt"){
+	include "application/includes/profile_pages/order_view_txt.php";
 }
-
 ?>
