@@ -17,14 +17,14 @@
 		//отображение доп. полей взависимости от типа платежа
 		$(document).on("change", "[name=order_type]", function(){
 			var dataId = $(this).val(),
-				anotherId = {"sber":"qiwi", "qiwi":"sber"};
+				anotherId = {"tinkoff":"qiwi", "qiwi":"tinkoff"};
 			if(dataId != ""){
 				ShowFields(anotherId[dataId], "[name=wallet_num]", 0);
 				ShowFields(anotherId[dataId], "select", 0);
 				ShowFields(anotherId[dataId], "textarea", 0);
 				ShowFields(dataId, "select", 1);
 			}else{
-				ShowFields("sber", ":visible", 0);
+				ShowFields("tinkoff", ":visible", 0);
 				ShowFields("qiwi", ":visible", 0);
 			}
 			$("textarea").removeAttr("disabled");
@@ -33,22 +33,22 @@
 			var val = $(this).val();
 			if(val == "wallet"){
 
-				ShowFields("sber", "[data-name=wallet_num]", 0);
+				ShowFields("tinkoff", "[data-name=wallet_num]", 0);
 				ShowFields("qiwi", "[name=wallet_num]", 1);
 			//	$("div[data-id=qiwi]").has("textarea").show();
 
 			}else if(val == "terminal" || val == "euroset"){
 
-				ShowFields("sber", "[data-name=wallet_num]", 0);
+				ShowFields("tinkoff", "[data-name=wallet_num]", 0);
 				ShowFields("qiwi", "[name=wallet_num]", 0);
 			//	$("div[data-id=qiwi]").has("textarea").show();
 
 			}else if(val == "mobil" || val == "lk" || val == "bankomat" || val == "tinkoff_card" || val == "enother_card"){
 //				ShowFields("qiwi", "[name=wallet_num]", 0);
-//				ShowFields("sber", "[data-name=wallet_num]", 1);
+//				ShowFields("tinkoff", "[data-name=wallet_num]", 1);
 //				$("div[data-id=qiwi]").has("textarea").hide();
 			}else{
-				ShowFields("sber", "[data-name=wallet_num]", 0);
+				ShowFields("tinkoff", "[data-name=wallet_num]", 0);
 				ShowFields("qiwi", "[name=wallet_num]", 0);
 //				$("div[data-id=qiwi]").has("textarea").hide();
 			}
@@ -62,11 +62,11 @@
 				 e.preventDefault();
 				 alertify.error("Отметьте все обязательные поля!");
 				 $("[name=order_place]:required").focus();
-			}else if($("[data-id=sber_num]:visible").length > 0){
-				if($("[data-id=sber_num]").val().match(/\d{4}/) == null){
+			}else if($("[data-id=tinkoff_num]:visible").length > 0){
+				if($("[data-id=tinkoff_num]").val().match(/\d{4}/) == null){
 					e.preventDefault();
 					alertify.error("Укажите последнии цыфры карты");
-					$("[data-id=sber_num]").focus();
+					$("[data-id=tinkoff_num]").focus();
 				}
 			}
 		})
@@ -124,7 +124,7 @@ function ShowFields(type, objStr, show){
 				<label class="signature">Способ оплаты</label>
 				<select class="form-control" name="order_type" required>
 					<option value="">выберите</option>
-					<option value="sber">На карту Tinkoff</option>
+					<option value="tinkoff">На карту Tinkoff</option>
 					<option value="qiwi">На Qiwi-кошелёк</option>
 				</select>
 			</div>
@@ -137,36 +137,36 @@ function ShowFields(type, objStr, show){
 					<option value="euroset">в евросети</option>
 				</select>
 			</div>	
-			<div class="col-xs-2 deployed" data-id="sber">
+			<div class="col-xs-2 deployed" data-id="tinkoff">
 				<label class="signature">Через что</label>
 				<select class="form-control" name="order_place">
 					<option value="">выберите</option>
                     <option value="tinkoff_card">с карты Тинькоффт</option>
-                    <option value="another_card">С карты другого банка</option>
+                    <option value="another_bank">С карты другого банка</option>
                     <option value="euroset">В салоне связи MTC, Cвязной, Eвросеть</option>
 				</select>
 			</div>
-<!--			<div class="col-xs-2 deployed" data-id="sber">-->
+<!--			<div class="col-xs-2 deployed" data-id="tinkoff">-->
 <!--				<label class="signature">Посл 4цифры карты</label>-->
-<!--				<input type="text" class="form-control" name="card_number"  data-name="wallet_num" data-id="sber_num">-->
+<!--				<input type="text" class="form-control" name="card_number"  data-name="wallet_num" data-id="tinkoff_num">-->
 <!--			</div>	-->
 			<div class="col-xs-2 deployed" data-id="qiwi">
 				<label class="signature">Номер кошелька</label>
 				<input type="text" data-id="phone" class="form-control" name="wallet_num">
 			</div>
-<!--			<div class="col-xs-2 deployed" data-id="sber">-->
+<!--			<div class="col-xs-2 deployed" data-id="tinkoff">-->
 <!--				<label class="signature">Пос. 4 цифры карты</label>-->
-<!--				<input type="text" class="form-control" name="wallet_num" data-id="sber_num">-->
+<!--				<input type="text" class="form-control" name="wallet_num" data-id="tinkoff_num">-->
 <!--			</div>*-->
-<!--			<div class="col-xs-2 deployed" data-id="sber">-->
+<!--			<div class="col-xs-2 deployed" data-id="tinkoff">-->
 <!--				<label class="signature">Имя владельца карты</label>-->
 <!--				<input type="text" class="form-control" name="name" data-name="wallet_num">-->
 <!--			</div>-->
-<!--			<div class="col-xs-2 deployed" data-id="sber">-->
+<!--			<div class="col-xs-2 deployed" data-id="tinkoff">-->
 <!--				<label class="signature">Отчество владельца</label>-->
 <!--				<input type="text" class="form-control" name="surname" data-name="wallet_num">-->
 <!--			</div>-->
-<!--			<div class="col-xs-2 deployed" data-id="sber">-->
+<!--			<div class="col-xs-2 deployed" data-id="tinkoff">-->
 <!--				<label class="signature">Фамилия владельца</label>-->
 <!--				<input type="text" class="form-control" name="second_name" data-name="wallet_num">-->
 <!--			</div>-->

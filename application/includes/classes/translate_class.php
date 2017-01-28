@@ -280,8 +280,13 @@ Class Translate
 	}
 
 	static function Order_type_place($str){
-		switch ($str)
-			{
+		switch ($str){
+				case 'tinkoff_card':
+					$result = "Карта Тинькоff";
+					break;
+				case 'tinkoff':
+					$result = "Тинькоff";
+					break;
 				case 'sber':
 					$result = "Сбербанк";
 					break;
@@ -310,7 +315,7 @@ Class Translate
 					$result = "через терминал";
 					break;
 				case 'euroset':
-					$result = "в евросети";
+					$result = "Салон связи";
 					break;
 			}
 		return $result;

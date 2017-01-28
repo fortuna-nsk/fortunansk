@@ -26,9 +26,7 @@
                 <td><?echo $i+1;?></td>
                 <td data-name='an' onclick="ShowEmployees('<?echo $data[$i]["company_id"];?>')">
                     (<?=$data[0]["people_info"][$data[$i]["company_id"]]?>) <?=$data[$i]["company_name"];?></td>
-                <td><?echo Translate::Order_type_place($data[$i]["order_type"]);?>
-                    <?php if($data[$i]["card_number"] != '') echo "<br/>*** {$data[$i]["card_number"]}";?>
-                </td>
+                <td><?echo Translate::Order_type_place($data[$i]["order_type"]);?></td>
                 <td><?echo Translate::Order_type_place($data[$i]['order_place']);if(!empty($data[$i]['wallet_num'])) echo "<br/>".$data[$i]['wallet_num'];?></td>
                 <td><?echo $data[$i]["sum"];?></td>
                 <td><?echo $data[$i]["comment_order"];?></td>
