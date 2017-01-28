@@ -33,7 +33,24 @@
 	<?php
 		}
 	?>
-	<form method='POST' id='check_rielter'>
+    <script type="text/javascript">
+        <!--
+        /**
+         *
+         * @returns {boolean|*}
+         */
+        function check_rielter_form(){
+            valid = true;
+            if(document.check_rielter.phone.value == ""  && document.check_rielter.company_id.value == ""){
+                alert( "Введите номер телефона или название агентства " );
+                valid = false;
+            }
+            return valid;
+        }
+        //-->
+    </script>
+
+    <form method='POST' id='check_rielter'  name='check_rielter' onsubmit="return check_rielter_form();">
 		<?if($_SESSION['admin'] == 1){?>
 				<label class="signature">Выберите тип поиска</label>
 				<div class="radio" style="display:none">
