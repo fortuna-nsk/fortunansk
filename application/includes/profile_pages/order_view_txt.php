@@ -23,7 +23,7 @@ $data = "application/includes/txt/orders.txt"; ?>
 
 <div class="col-xs-9">
 
-    <legend>Отправка данных об оплате <?if($_GET["task"]=="login") echo "АН «".$data[1]."»";?></legend>
+    <legend>ОПЛАТА <?if($_GET["task"]=="login") echo "АН «".$data[1]."»";?></legend>
     <div class="col-xs-12" style="margin-top:15px">
         <?if($_SESSION['admin']==1){?>
             <?if(isset($_POST['content']) && $_GET['edit']==1){
@@ -50,3 +50,4 @@ $data = "application/includes/txt/orders.txt"; ?>
             <?}?>
         </div>
     </div>
+   </div>

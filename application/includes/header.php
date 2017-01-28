@@ -6,8 +6,8 @@
 				<a href="javascript:void(0)" id="dropdownMenu4" data-toggle="dropdown" style="margin: -11px -10px -11px 10px;padding: 13px;" class="left">Меню<span class="caret"></span></a>
 				<ul class="dropdown-menu" aria-labelledby="dropdownMenu4">
 					<?if($_SESSION['parent'] == 0){?>
-						<li><a href="?task=profile&action=order_txt"><font color = red>ОПЛАТА и Отправка данных об оплате</font></a></li>
-						<li><a href="?task=profile&action=order">ОПЛАТА</a></li>
+						<li><a href="?task=profile&action=order_txt"><font color = red>ОПЛАТА</font></a></li>
+						<li><a href="?task=profile&action=order">ОПЛАТА и Отправка данных об оплате</a></li>
 						<li><a href="?task=profile&action=services"><font color = red>Продление доступа</font></a></li>
 						<li><a href="?task=profile&action=user_list">Список сотрудников</a></li>
 						<li><a href="?task=profile&action=tariffs">Тарифы и условия</a></li>
