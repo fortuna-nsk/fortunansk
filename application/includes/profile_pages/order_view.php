@@ -222,7 +222,7 @@ function ShowFields(type, objStr, show){
                                     <td><?echo $i+1;?></td>
                                     <td style="width: 100px;"><?echo date("d.m.Y H:i:s", strtotime($data[$i]['date_order']));?></td>
                                     <td style="width: 100px;"><?echo date("d.m.Y H:i:s", strtotime($data[$i]['pay_date']));?></td>
-                                    <td><?echo Translate::Order_type_place($data[$i]['order_type']);?></td>
+<!--                                    <td>--><?//echo Translate::Order_type_place($data[$i]['order_type']);?><!--</td>-->
                                     <td><?echo $data[$i]['wallet_num'];?></td>
                                     <td><?php
                                                 echo Translate::Order_type_place($data[$i]['order_place']);
@@ -230,7 +230,7 @@ function ShowFields(type, objStr, show){
                                         ?>
                                     </td>
                                     <td><?echo $data[$i]["sum"];?></td>
-                                    <td><?echo $data[$i]['comment_pay'];?></td>
+<!--                                    <td>--><?//echo $data[$i]['comment_pay'];?><!--</td>-->
                                     <td><?echo $data[$i]['comment_order'];?></td>
                                 </tr>
                             <?}
