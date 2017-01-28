@@ -4,7 +4,9 @@
 	<ul class="admin-menu">
 		<?if($director){?>
 			
-			<a href="?task=profile&action=order"><li class='<?if($_GET['action']=='order')echo "active";?>'><font color=red>ОПЛАТА и отправка данных об оплате</font></li></a>
+			<a href="?task=profile&action=order_txt"><li class='<?if($_GET['action']=='order_txt')echo "active";?>'><font color=red>Отправка данных об оплате</font></li></a>
+            <a href="?task=profile&action=order"><li class='<?if($_GET['action']=='order')echo "active";?>'>ОПЛАТА</li></a>
+
 			<a href="?task=profile&action=services"><li class='<?if($_GET['action']=='services')echo "active";?>'><font color=red>Продление доступа</font></li></a>			
 			<a href="?task=profile&action=user_list"><li class='<?if($_GET['action']=='user_list' || $_GET['action']=='create_profile')echo "active";?>'>Список сортудников</li></a>
 			<a href="?task=profile&action=tariffs"><li class='<?if($_GET['action']=='tariffs')echo "active";?>'>Тарифы и условия</li></a>

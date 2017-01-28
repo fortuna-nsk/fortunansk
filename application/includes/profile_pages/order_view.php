@@ -6,9 +6,8 @@
 		</div>
 	</div>
 <?exit;}*/
- ?>
 
-
+?>
 <script type="text/javascript">
 	$(function(){
 		if($("form#order_send").attr("action") == ""){
@@ -83,39 +82,11 @@ function ShowFields(type, objStr, show){
 	}
 }
 </script>
-<?
-
-$form_visible =  intval($data[0]['order_access']) == 1 || intval($_SESSION['order_access']) == 1;?>
+<?$form_visible =  intval($data[0]['order_access']) == 1 || intval($_SESSION['order_access']) == 1;?>
 <div class="col-xs-9">
 
     <legend>Отправка данных об оплате <?if($_GET["task"]=="login") echo "АН «".$data[1]."»";?></legend>
-    <div class="col-xs-12" style="margin-top:15px">
-        <?if($_SESSION['admin']==1){?>
-            <?if(isset($_POST['content']) && $_GET['edit']==1){
-                $fp = fopen($orderFile, "wa"); // Открываем файл в режиме записи
-                fwrite($fp, $_POST['content']); // Запись в файл
-                fclose($fp); //Закрытие файла
-            }?>
-            <div data-id="text" class="hidden">
-                <form method="post" action="?task=profile&action=order&edit=1">
-                    <textarea id="rules" name="content"><?readfile($orderFile)?></textarea>
-                    <div class="col-xs-12" style="text-align: right;margin-top:15px">
-                        <a href="?task=profile&action=order" class="btn btn-default">Отмена</a>
-                        <button type="submit" class="btn btn-success">Отправить</button>
-                    </div>
-                </form>
-            </div>
-        <?}?>
-        <div data-id="text">
-            <?readfile($orderFile);?>
-            <?if($_SESSION['admin']==1){?>
-                <div class="col-xs-12" style="text-align: right;margin-top:15px">
-                    <button type="button" class="btn btn-primary" onClick="$('[data-id=text]').toggleClass('hidden')">Редактировать</button>
-                </div>
-            <?}?>
-        </div>
-    </div>
-		<!--<p>Оплата производится на карту сбербанка номер: <span style="color: #33B100;font-weight: bolder;">4276 8440 1970 6084</span> которая привязана к номеру телефона 89139179516 или на киви кошелек: <span style="color: #33B100;font-weight: bolder;">9139179516</span></p> 
+		<!--<p>Оплата производится на карту сбербанка номер: <span style="color: #33B100;font-weight: bolder;">4276 8440 1970 6084</span> которая привязана к номеру телефона 89139179516 или на киви кошелек: <span style="color: #33B100;font-weight: bolder;">9139179516</span></p>
 		<p/>С 17 декабря временно оплата принемается только на киви кошелек его номер<span style="color: #33B100;font-weight: bolder;"> 89139179516</span>.<br/>
 		При оплате учитывайте что необходимо учитывать комиссию за отправку и обналичивание.<br/>
 		За отправку бывает что комиссию и не берут а за обналичивание с любой суммы 20р списывается при внесении данных об оплате.<br/>
@@ -125,11 +96,9 @@ $form_visible =  intval($data[0]['order_access']) == 1 || intval($_SESSION['orde
 		<?if($_GET["task"]=="login"){
 			echo "<p style='color: rgb(216, 42, 42);'>Ваш доступ деактивирован, т.к. закончилась абонентская плата. Рекомендуемый минимальный платеж по аренде: ".($data['duty'] + $data['subscription'] - $data['balance'] + 50)."р.. Все оплаченные излишки остаются на вашем балансе и могут быть использованы в любое время.<br /><br />После отправки данных об оплате, Вам потребуется заново ввести логин и пароль, чтобы выбрать и активировать нужные Вам услуги, которые будут доступны в пределах вашего баланса. После активации услуг опять заходите под логином и паролем, пользуетесь ресурсом. Те кому требуется дополнительные премиумы, могут их активировать из ЛК раздел 'Продление доступа, изменение услуг'.</p>";
 		}?>
-	</div>
 		<?if(!$form_visible){?>
 			<div class="col-xs-12 deployed">
 				<p style="color:red">Форма оплаты будет доступна после проверки администратором предыдущего платежа.</p>
-			</div>
 		<?}?>
 
     <div class="col-xs-8" style="margin-top:15px">
@@ -253,5 +222,5 @@ $form_visible =  intval($data[0]['order_access']) == 1 || intval($_SESSION['orde
 			</tbody>
 		</table>
 	<?}?>
-</div>			
-			</div>
+            </div>
+</div>
