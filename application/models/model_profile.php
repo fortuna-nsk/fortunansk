@@ -1048,7 +1048,10 @@ class Model_Profile extends Model
 		if(!empty($_POST)){
 			if($_SESSION['user'] && ($_POST["phone"] != "" || $_POST["company_id"] != "") && !empty($_POST['var_id']) && ($_POST['var_id'] !="***" || $_POST["company_id"] != "")){
 				$date = date("Y-m-d H:i:s");
-				$check_list = DB::Select("re_check_rielter.id, people_id, search_str, search_result, DATE_ADD(date_search, INTERVAL -1 hour) as date_search, check_comment, second_name, name, phone, company_name", "re_check_rielter INNER JOIN re_people ON re_check_rielter.people_id = re_people.id INNER JOIN re_company ON re_people.company_id = re_company.id", "search_str = '".$_POST['phone']."' ORDER BY `date_edit` DESC");
+				$check_list = DB::Select("re_check_rielter.id, people_id, search_str, search_result, DATE_ADD(date_search, INTERVAL -1 hour) as date_search, check_comment, second_name, name, phone, company_name",
+                                        "re_check_rielter INNER JOIN re_people ON re_check_rielter.people_id = re_people.id
+                                                            INNER JOIN re_company ON re_people.company_id = re_company.id",
+                                            "search_str = '".$_POST['phone']."' AND re_check_rielter.date_search >= DATE_SUB(CURDATE(),INTERVAL 6 MONTH)  ORDER BY `date_edit` DESC");
 				$continue = $check_list[0]['people_id'] != $_SESSION['people_id'] ? true : false;			
 				$company_id = $_POST["company_id"] == "" ? "" : "AND a.company_id=".$_POST["company_id"];
 				if($_POST['phone']!=""){
