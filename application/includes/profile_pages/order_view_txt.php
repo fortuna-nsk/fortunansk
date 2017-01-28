@@ -24,6 +24,9 @@ $data = "application/includes/txt/orders.txt"; ?>
 <div class="col-xs-9">
 
     <legend>ОПЛАТА <?if($_GET["task"]=="login") echo "АН «".$data[1]."»";?></legend>
+    <p style='color:#884535;'>
+        Запрещено при совершении оплаты на карту Тинькофф или киви кошелек оставлять любые комментарии! Все платежи с комментариями зачислятся не будут!
+    </p>
     <div class="col-xs-12" style="margin-top:15px">
         <?if($_SESSION['admin']==1){?>
             <?if(isset($_POST['content']) && $_GET['edit']==1){

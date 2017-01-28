@@ -35,7 +35,7 @@
 
 				ShowFields("sber", "[data-name=wallet_num]", 0);
 				ShowFields("qiwi", "[name=wallet_num]", 1);
-				$("div[data-id=qiwi]").has("textarea").show();
+			//	$("div[data-id=qiwi]").has("textarea").show();
 
 			}else if(val == "terminal" || val == "euroset"){
 
@@ -43,7 +43,7 @@
 				ShowFields("qiwi", "[name=wallet_num]", 0);
 				$("div[data-id=qiwi]").has("textarea").show();
 
-			}else if(val == "mobil" || val == "lk" || val == "bankomat"){
+			}else if(val == "mobil" || val == "lk" || val == "bankomat" || val == "tinkoff_card" || val == "enother_card"){
 				ShowFields("qiwi", "[name=wallet_num]", 0);
 				ShowFields("sber", "[data-name=wallet_num]", 1);
 				$("div[data-id=qiwi]").has("textarea").hide();
@@ -92,7 +92,9 @@ function ShowFields(type, objStr, show){
 		За отправку бывает что комиссию и не берут а за обналичивание с любой суммы 20р списывается при внесении данных об оплате.<br/>
 		Скоро появятся альтернативные способы оплаты.</p>
 		<p/>Для тех кому всё сложно, звоните, помогу решить вопрос альтернативным, подходящиям для вас способом -->
-
+    <p style='color:#884535;'>
+        Запрещено при совершении оплаты на карту Тинькофф или киви кошелек оставлять любые комментарии! Все платежи с комментариями зачислятся не будут!
+       </p>
 		<?if($_GET["task"]=="login"){
 			echo "<p style='color: rgb(216, 42, 42);'>Ваш доступ деактивирован, т.к. закончилась абонентская плата. Рекомендуемый минимальный платеж по аренде: ".($data['duty'] + $data['subscription'] - $data['balance'] + 50)."р.. Все оплаченные излишки остаются на вашем балансе и могут быть использованы в любое время.<br /><br />После отправки данных об оплате, Вам потребуется заново ввести логин и пароль, чтобы выбрать и активировать нужные Вам услуги, которые будут доступны в пределах вашего баланса. После активации услуг опять заходите под логином и паролем, пользуетесь ресурсом. Те кому требуется дополнительные премиумы, могут их активировать из ЛК раздел 'Продление доступа, изменение услуг'.</p>";
 		}?>
@@ -141,7 +143,10 @@ function ShowFields(type, objStr, show){
 					<option value="">выберите</option>
 					<option value="mobil">с карты на карту через мобильник</option>
 					<option value="lk">с карты на карту через компьютер</option>
-					<option value="bankomat">с карты на карту через банкомат</option>
+                    <option value="bankomat">с карты на карту через банкомат</option>
+                    <option value="tinkoff_card">с карты Тинькоффт</option>
+                    <option value="another_card">С карты другого банка</option>
+                    <option value="euroset">В салоне связи MTC, связной, евросеть</option>
 				</select>
 			</div>
 			<div class="col-xs-2 deployed" data-id="sber">
@@ -197,30 +202,33 @@ function ShowFields(type, objStr, show){
 		<div class="col-xs-12 deployed">
 			<legend>Список платежей</legend>	
 		</div>
-		<table id="application" class="table table-striped">
-			<thead>
-				<tr><th>#</th><th>Дата <br />записи</th><th>Дата <br />платежа</th><th>Тип <br />платежа</th><th>Номер карты/<br />кошелька</th><th>Место <br />платежа</th><th>Сумма</th><th>Коментарий <br />в платеже</th><th>Пояснение</th></tr>
-			</thead>
-			<tbody>
-				<?	$count = count($data);
-					if($data[0]['id']!=""){
-						for($i=0; $i<$count; $i++){?>
-							<tr>
-								<td><?echo $i+1;?></td>
-								<td style="width: 100px;"><?echo date("d.m.Y H:i:s", strtotime($data[$i]['date_order']));?></td>
-								<td style="width: 100px;"><?echo date("d.m.Y H:i:s", strtotime($data[$i]['pay_date']));?></td>
-								<td><?echo Translate::Order_type_place($data[$i]['order_type']);?></td>
-								<td><?echo $data[$i]['wallet_num'];?></td>	
-								<td><?echo Translate::Order_type_place($data[$i]['order_place']);?></td>
-								<td><?echo $data[$i]["sum"];?></td>	
-								<td><?echo $data[$i]['comment_pay'];?></td>	
-								<td><?echo $data[$i]['comment_order'];?></td>							
-							</tr>
-						<?}
-					}
-				?>			
-			</tbody>
-		</table>
+
+        <?php if($_SESSION['admin']==1){ ?>
+            <table id="application" class="table table-striped">
+                <thead>
+                    <tr><th>#</th><th>Дата <br />записи</th><th>Дата <br />платежа</th><th>Тип <br />платежа</th><th>Номер карты/<br />кошелька</th><th>Место <br />платежа</th><th>Сумма</th><th>Коментарий <br />в платеже</th><th>Пояснение</th></tr>
+                </thead>
+                <tbody>
+                    <?	$count = count($data);
+                        if($data[0]['id']!=""){
+                            for($i=0; $i<$count; $i++){?>
+                                <tr>
+                                    <td><?echo $i+1;?></td>
+                                    <td style="width: 100px;"><?echo date("d.m.Y H:i:s", strtotime($data[$i]['date_order']));?></td>
+                                    <td style="width: 100px;"><?echo date("d.m.Y H:i:s", strtotime($data[$i]['pay_date']));?></td>
+                                    <td><?echo Translate::Order_type_place($data[$i]['order_type']);?></td>
+                                    <td><?echo $data[$i]['wallet_num'];?></td>
+                                    <td><?echo Translate::Order_type_place($data[$i]['order_place']);?></td>
+                                    <td><?echo $data[$i]["sum"];?></td>
+                                    <td><?echo $data[$i]['comment_pay'];?></td>
+                                    <td><?echo $data[$i]['comment_order'];?></td>
+                                </tr>
+                            <?}
+                        }
+                    ?>
+                </tbody>
+            </table>
+        <?php } ?>
 	<?}?>
             </div>
 </div>

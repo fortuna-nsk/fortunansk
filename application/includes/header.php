@@ -6,9 +6,9 @@
 				<a href="javascript:void(0)" id="dropdownMenu4" data-toggle="dropdown" style="margin: -11px -10px -11px 10px;padding: 13px;" class="left">Меню<span class="caret"></span></a>
 				<ul class="dropdown-menu" aria-labelledby="dropdownMenu4">
 					<?if($_SESSION['parent'] == 0){?>
-						<li><a href="?task=profile&action=order_txt"><font color = red>ОПЛАТА</font></a></li>
-						<li><a href="?task=profile&action=order">ОПЛАТА и Отправка данных об оплате</a></li>
-						<li><a href="?task=profile&action=services"><font color = red>Продление доступа</font></a></li>
+						<li><a href="?task=profile&action=order_txt"><font style = 'color: #884535'>1 ОПЛАТА</font></a></li>
+						<li><a href="?task=profile&action=order"><font style = 'color: #884535'>2 Отправка данных об оплате</font></a></li>
+						<li><a href="?task=profile&action=services"><font style = 'color: #884535'>3 Продление доступа</font></a></li>
 						<li><a href="?task=profile&action=user_list">Список сотрудников</a></li>
 						<li><a href="?task=profile&action=tariffs">Тарифы и условия</a></li>
 					<?}?>
@@ -48,14 +48,15 @@
 					echo "<a style='float: left; margin: -11px -10px -11px 10px;padding: 13px;' href='?task=admin'>Админка</a>";
 				}
 			if($_SESSION['parent']==0 && $_SESSION['admin']==0){?>
-				<a class="left" href="?task=profile&action=send_message" style="margin: -11px -10px -11px 10px;padding: 13px;"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> админу</a>	
+				<a class="left" href="?task=profile&action=send_message" style="margin: -11px -10px -11px 10px;padding: 13px;">
+                            <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> админу</a>
 			<?}?>
 			<a href="?task=profile&action=check_rielter" style="margin: -11px -10px -11px 10px;padding: 13px;" class="left">Кто звонит?</a>
 			<a href="?task=profile&action=forum" style="margin: -11px -10px -11px 10px;padding: 13px;" class="left">ФОРУМ</a>
 			<!--style="margin: -11px -10px -11px 10px;padding: 13px;" -->
 			
 			<a href="?task=login&action=logout" style="margin: -11px -20px -11px 10px;padding: 13px;" class="right">Выход</a>
-			<?$link = $_SESSION['parent']==0 ? "?task=profile&action=order" : "?task=profile&action=rules";?>
+			<?$link = $_SESSION['parent']==0 ? "?task=profile&action=order_txt" : "?task=profile&action=rules";?>
 			<a href="<?=$link?>" class="right" style="margin: -11px -10px -11px 10px;padding: 13px;">ЛK</a>
 			<a href="?task=profile&action=recipients" class="right" style="margin: -11px -10px -11px 10px;padding: 13px;">Подборки</a>
 			<?$my_obj_topic=isset($_GET['topic_id']) ? $_GET['topic_id'] : ($_SESSION["group_topic_id"] == 3 ? 1 : $_SESSION["group_topic_id"]);?>
