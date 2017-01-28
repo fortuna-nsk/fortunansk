@@ -10,5 +10,7 @@
 /fancyBox/
 /upload/
 /tmce4/
+/application/includes/txt/*
 /application/includes/txt/
+.gitignore
 /.idea/
