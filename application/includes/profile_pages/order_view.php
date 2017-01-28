@@ -41,16 +41,16 @@
 
 				ShowFields("sber", "[data-name=wallet_num]", 0);
 				ShowFields("qiwi", "[name=wallet_num]", 0);
-				$("div[data-id=qiwi]").has("textarea").show();
+			//	$("div[data-id=qiwi]").has("textarea").show();
 
 			}else if(val == "mobil" || val == "lk" || val == "bankomat" || val == "tinkoff_card" || val == "enother_card"){
-				ShowFields("qiwi", "[name=wallet_num]", 0);
-				ShowFields("sber", "[data-name=wallet_num]", 1);
-				$("div[data-id=qiwi]").has("textarea").hide();
+//				ShowFields("qiwi", "[name=wallet_num]", 0);
+//				ShowFields("sber", "[data-name=wallet_num]", 1);
+//				$("div[data-id=qiwi]").has("textarea").hide();
 			}else{
 				ShowFields("sber", "[data-name=wallet_num]", 0);
 				ShowFields("qiwi", "[name=wallet_num]", 0);
-				$("div[data-id=qiwi]").has("textarea").hide();
+//				$("div[data-id=qiwi]").has("textarea").hide();
 			}
 		})
 		$("#order_send").submit(function(e){
@@ -141,42 +141,39 @@ function ShowFields(type, objStr, show){
 				<label class="signature">Через что</label>
 				<select class="form-control" name="order_place">
 					<option value="">выберите</option>
-					<option value="mobil">с карты на карту через мобильник</option>
-					<option value="lk">с карты на карту через компьютер</option>
-                    <option value="bankomat">с карты на карту через банкомат</option>
                     <option value="tinkoff_card">с карты Тинькоффт</option>
                     <option value="another_card">С карты другого банка</option>
-                    <option value="euroset">В салоне связи MTC, связной, евросеть</option>
+                    <option value="euroset">В салоне связи MTC, Cвязной, Eвросеть</option>
 				</select>
 			</div>
-			<div class="col-xs-2 deployed" data-id="sber">
-				<label class="signature">Посл 4цифры карты</label>
-				<input type="text" class="form-control" name="card_number"  data-name="wallet_num" data-id="sber_num">
-			</div>	
+<!--			<div class="col-xs-2 deployed" data-id="sber">-->
+<!--				<label class="signature">Посл 4цифры карты</label>-->
+<!--				<input type="text" class="form-control" name="card_number"  data-name="wallet_num" data-id="sber_num">-->
+<!--			</div>	-->
 			<div class="col-xs-2 deployed" data-id="qiwi">
 				<label class="signature">Номер кошелька</label>
 				<input type="text" data-id="phone" class="form-control" name="wallet_num">
 			</div>
-			<?/*<div class="col-xs-2 deployed" data-id="sber">
-				<label class="signature">Пос. 4 цифры карты</label>
-				<input type="text" class="form-control" name="wallet_num" data-id="sber_num">
-			</div>*/?>
-			<div class="col-xs-2 deployed" data-id="sber">
-				<label class="signature">Имя владельца карты</label>
-				<input type="text" class="form-control" name="name" data-name="wallet_num">
-			</div>
-			<div class="col-xs-2 deployed" data-id="sber">
-				<label class="signature">Отчество владельца</label>
-				<input type="text" class="form-control" name="surname" data-name="wallet_num">
-			</div>
-			<div class="col-xs-2 deployed" data-id="sber">
-				<label class="signature">Фамилия владельца</label>
-				<input type="text" class="form-control" name="second_name" data-name="wallet_num">
-			</div>
-			<div class="col-xs-4 deployed" data-id="qiwi">
-				<label class="signature">Коментарий в платеже</label>
-				<textarea rows="3" name="comment_pay" class="form-control" placeholder="коментарий в платеже"></textarea>
-			</div>
+<!--			<div class="col-xs-2 deployed" data-id="sber">-->
+<!--				<label class="signature">Пос. 4 цифры карты</label>-->
+<!--				<input type="text" class="form-control" name="wallet_num" data-id="sber_num">-->
+<!--			</div>*-->
+<!--			<div class="col-xs-2 deployed" data-id="sber">-->
+<!--				<label class="signature">Имя владельца карты</label>-->
+<!--				<input type="text" class="form-control" name="name" data-name="wallet_num">-->
+<!--			</div>-->
+<!--			<div class="col-xs-2 deployed" data-id="sber">-->
+<!--				<label class="signature">Отчество владельца</label>-->
+<!--				<input type="text" class="form-control" name="surname" data-name="wallet_num">-->
+<!--			</div>-->
+<!--			<div class="col-xs-2 deployed" data-id="sber">-->
+<!--				<label class="signature">Фамилия владельца</label>-->
+<!--				<input type="text" class="form-control" name="second_name" data-name="wallet_num">-->
+<!--			</div>-->
+<!--			<div class="col-xs-4 deployed" data-id="qiwi">-->
+<!--				<label class="signature">Коментарий в платеже</label>-->
+<!--				<textarea rows="3" name="comment_pay" class="form-control" placeholder="коментарий в платеже"></textarea>-->
+<!--			</div>-->
 			<div class="col-xs-4 deployed">
 				<label class="signature">Коментарий для админа</label>
 				<textarea rows="3" name="comment_order" class="form-control" placeholder="коментарий для админа"></textarea>
@@ -199,14 +196,23 @@ function ShowFields(type, objStr, show){
 		</form>
     </div>
 	<?if($_GET["task"]=="profile"){?>
+        <?php if($_SESSION['admin']==1){ ?>
 		<div class="col-xs-12 deployed">
 			<legend>Список платежей</legend>	
 		</div>
 
-        <?php if($_SESSION['admin']==1){ ?>
             <table id="application" class="table table-striped">
                 <thead>
-                    <tr><th>#</th><th>Дата <br />записи</th><th>Дата <br />платежа</th><th>Тип <br />платежа</th><th>Номер карты/<br />кошелька</th><th>Место <br />платежа</th><th>Сумма</th><th>Коментарий <br />в платеже</th><th>Пояснение</th></tr>
+                    <tr>
+                        <th>#</th>
+                        <th>Дата <br />записи</th>
+                        <th>Дата <br />платежа</th>
+                        <th>Тип <br />платежа</th>
+<!--                         <th>Номер карты/<br />кошелька</th>-->
+                        <th>Место <br />платежа</th>
+                        <th>Сумма</th>
+<!--                        <th>Коментарий <br />в платеже</th>-->
+                        <th>Пояснение</th></tr>
                 </thead>
                 <tbody>
                     <?	$count = count($data);
@@ -216,11 +222,15 @@ function ShowFields(type, objStr, show){
                                     <td><?echo $i+1;?></td>
                                     <td style="width: 100px;"><?echo date("d.m.Y H:i:s", strtotime($data[$i]['date_order']));?></td>
                                     <td style="width: 100px;"><?echo date("d.m.Y H:i:s", strtotime($data[$i]['pay_date']));?></td>
-                                    <td><?echo Translate::Order_type_place($data[$i]['order_type']);?></td>
+<!--                                    <td>--><?//echo Translate::Order_type_place($data[$i]['order_type']);?><!--</td>-->
                                     <td><?echo $data[$i]['wallet_num'];?></td>
-                                    <td><?echo Translate::Order_type_place($data[$i]['order_place']);?></td>
+                                    <td><?php
+                                                echo Translate::Order_type_place($data[$i]['order_place']);
+                                            if(!empty($data[$i]['wallet_num'])){ echo $data[$i]['wallet_num']; }
+                                        ?>
+                                    </td>
                                     <td><?echo $data[$i]["sum"];?></td>
-                                    <td><?echo $data[$i]['comment_pay'];?></td>
+<!--                                    <td>--><?//echo $data[$i]['comment_pay'];?><!--</td>-->
                                     <td><?echo $data[$i]['comment_order'];?></td>
                                 </tr>
                             <?}
