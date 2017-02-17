@@ -28,10 +28,9 @@ class Model_Main extends Model
 			$condition.=" AND DATE_ADD(date_last_edit, INTERVAL {$_GET['hours']}) >= NOW() ";		}else{
 			$condition.=" AND DATE_ADD(date_last_edit, INTERVAL 3 day) >= NOW() ";
 		}
-		if($_SESSION['people_id'] == 1 && isset($_GET["suspicion"]) ){
-				$condition.=" AND `suspicion`= ".$_GET["suspicion"]." ";			
+		if($_SESSION['people_id'] == 1 && isset($_GET["suspicion"]) && $_GET["suspicion"]!='' ){
+				$condition.=" AND `suspicion`= ".$_GET["suspicion"]." ";
 		}
-		
 
 		if(!isset($_GET["topic_id"]) && ($_SESSION['group_topic_id'] == 3 || $_SESSION['group_topic_id'] == 1)){
 			$condition .= " AND topic_id=1 ";
