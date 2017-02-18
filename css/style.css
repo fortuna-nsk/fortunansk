@@ -1498,5 +1498,14 @@ legend{
 	}
 } */
 
+div.company_data_payment{
+	margin:	20px 0;
+	
+}
 
+label.company_data_payment{
+	color:red;
+	font-size: 19px;
+	font-weight: bold;
+}
  

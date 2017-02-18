@@ -47,6 +47,7 @@ mysql_query("SET time_zone = '+07:00'");
 if(!isset($_SESSION['people_id']) && isset($_GET['task']) && $_GET['task']!= 'login' ){
 	header("Location: http://". $_SERVER['SERVER_NAME']);
 }
+Helper::check_access_date();
 
 require_once 'core/route.php';
 Route::start(); // запускаем маршрутизатор

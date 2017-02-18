@@ -49,7 +49,7 @@ Class Translate
 		return $date;
 	}	
 	
-	static function Estate_type($topic, $parent){		
+	static function Estate_type($topic, $parent){	
 		if($topic == 1 || $topic == 3)
 		{
 			$topic = "Аренда";

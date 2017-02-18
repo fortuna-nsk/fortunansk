@@ -1,6 +1,32 @@
 <?
 Class Helper
 {
+
+	static function company_pay_data($company_id){
+			$payment_sum = mysql_fetch_assoc(mysql_query("SELECT sum from re_payment where company_id = '".$_SESSION['company_id']."'"))['sum'];
+			$balance = mysql_fetch_assoc(mysql_query("SELECT balance from re_company where id = '".$_SESSION['company_id']."'"))['balance'];
+			$rent_date_end = mysql_fetch_assoc(mysql_query("SELECT rent_date_end from re_access_date_end where id = '".$_SESSION['company_id']."'"))['rent_date_end'];
+
+	}
+
+	static function check_access_date(){
+		$now = new DateTime();
+		$url = explode('&', $_SERVER['REQUEST_URI']);
+		$controller = explode('=', $url[0])[1];
+		$action = explode('=', $url[1])[1];
+		if(isset($_SESSION['rent_date_end']) && $_SESSION['rent_date_end'] < $now->format('Y-m-d')){
+			$payment_sum = mysql_fetch_assoc(mysql_query("SELECT sum from re_payment where company_id = '".$_SESSION['company_id']."'"))['sum'];
+			$balance = mysql_fetch_assoc(mysql_query("SELECT balance from re_company where id = '".$_SESSION['company_id']."'"))['balance'];
+			if( $controller=='profile' && ($action == 'order' || $action == 'order_txt' || $action == "services")  ){
+				if($balance <= $payment_sum && $action == "services")
+					header("Location: http://". $_SERVER['SERVER_NAME'].'/?task=profile&action=order_txt');	
+				return true;
+			}else{
+				header("Location: http://". $_SERVER['SERVER_NAME'].'/?task=profile&action=order_txt');	
+			}
+		}
+	}
+
 	static function Address($address) {				
 		for($i=0; $i<count($address); $i++){
 			echo "<br />
@@ -741,12 +767,14 @@ Class Helper
 			}
 			$data["payment_list"] = $res_data;
 			unset($res);
-			$res = mysql_query("SELECT date_finish, SUM(premium_count) AS prem_sum FROM re_payment WHERE company_id = ".$_SESSION["company_id"]." AND active = 1 AND premium_count > 0 GROUP BY (date_finish) ORDER BY date_finish");
+			$res = mysql_query("SELECT date_finish, SUM(premium_count) AS prem_sum FROM re_payment 
+									WHERE company_id = ".$_SESSION["company_id"]." AND active = 1 AND premium_count > 0 GROUP BY (date_finish) ORDER BY date_finish");
 			while($row = mysql_fetch_assoc($res)){
 				$data["prem_end_date"][] = $row;
 			}
 			unset ($query, $res, $count, $i, $res_data, $row);
 			return $data;
+
 		}
 	}
 

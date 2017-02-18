@@ -66,9 +66,9 @@ class Controller_Login extends Controller
 							if((intval($row_q['group_topic_id']) == 1 && date("Y-m-d", strtotime($row_q["rent_date_end"])) < date("Y-m-d"))){
 								$row_q["group_topic_id"] = 0;
 							}else if(intval($row_q['group_topic_id'])== 3){
-								if(date("Y-m-d", strtotime($row_q["rent_date_end"])) < $date){							
-									$row_q["group_topic_id"]= 2;
-								}
+								//if(date("Y-m-d", strtotime($row_q["rent_date_end"])) < $date){							
+								//	$row_q["group_topic_id"]= 2;
+								//}
 								// if(date("Y-m-d", strtotime($row_q["sell_date_end"])) < $date){
 									// $row_q["group_topic_id"]= intval($row_q['group_topic_id'])-2;
 								// }

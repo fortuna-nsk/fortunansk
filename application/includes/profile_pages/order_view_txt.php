@@ -1,5 +1,7 @@
 <?php
-$data = "application/includes/txt/orders.txt"; ?>
+$data = "application/includes/txt/orders.txt"; 
+$company_data_payment = Helper::Services_data();
+?>
 
 <?$form_visible =  intval($data[0]['order_access']) == 1 || intval($_SESSION['order_access']) == 1;?>
 
@@ -24,6 +26,14 @@ $data = "application/includes/txt/orders.txt"; ?>
 <div class="col-xs-9">
 
     <legend>ОПЛАТА <?if($_GET["task"]=="login") echo "АН «".$data[1]."»";?></legend>
+    <div class = 'company_data_payment'>
+        <span>
+            <?="Баланс : <label class = 'company_data_payment'>{$company_data_payment['balance']}</label> 
+            Долг: <label class = 'company_data_payment'>{$company_data_payment['duty']}</label> 
+            Абонентская: <label class = 'company_data_payment'>{$company_data_payment['subscription']}</label> 
+            Доступ активен до: <label class = 'company_data_payment'>{$company_data_payment['rent_date_end']}</label> "?>
+        </span>
+    </div>
     <p style='color:#884535;'>
         Запрещено при совершении оплаты на карту Тинькофф или киви кошелек оставлять любые комментарии! Все платежи с комментариями зачислятся не будут!
     </p>

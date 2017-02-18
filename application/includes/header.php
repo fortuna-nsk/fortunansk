@@ -28,12 +28,19 @@
 				</ul>
 			</span>
 			
+
 				<span class="dropdown left dropdownMenu1" style="display: block;margin-top: 0px;margin-left: 38%;position: absolute;font-size: 18px;">
 					<a class="left" href="javascript:void(0)" id="dropdownMenu1" data-toggle="dropdown" style="float:left;    margin: -13px -10px -11px 10px; padding: 12px; color: rgb(205, 24, 24);" aria-expanded="false">
-						<?echo isset($topic) ? $topic : "Аренда";?><span class="caret"></span><span class='date-end'><?=date('d.m.Y', strtotime($topic=='Продажа' ? $_SESSION['sell_date_end'] : $_SESSION['rent_date_end']))?></span>
+						<?php 
+					
+						?>
+						<?echo isset($topic) ? $topic : "Аренда";?> <span class="caret"></span><span class='date-end'>
+						<?=date('d.m.Y', strtotime($topic=='Продажа' ? $_SESSION['sell_date_end'] : $_SESSION['rent_date_end']))?></span>
 					</a>
 					<ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-						<?php if($condition) { ?>
+						<?php
+						 if($condition) { 
+							?>
 							<li>
 								<a href="<?echo $url."&topic_id=1&parent_id=1";?>">Аренда</a>
 							</li>
@@ -43,7 +50,9 @@
 						</li>
 					</ul>
 				</span>									
-			<? if(($_SESSION['user']) AND ($_SESSION['user'] != 'guest')) { 
+			<?php
+			if(($_SESSION['user']) AND ($_SESSION['user'] != 'guest')) { 
+				
 				if($_SESSION['admin']==1){							
 					echo "<a style='float: left; margin: -11px -10px -11px 10px;padding: 13px;' href='?task=admin'>Админка</a>";
 				}

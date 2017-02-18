@@ -1246,7 +1246,7 @@ class Model_Profile extends Model
 				if($_SESSION['group_topic_id'] == 2){
 					$_SESSION['group_topic_id'] = 3;
 				}
-				$_SESSION['rent_date_end'] = date("d.m.Y", strtotime($new_date));
+				$_SESSION['rent_date_end'] = date("Y-m-d", strtotime($new_date));
 				echo date("d.m.Y", strtotime($new_date));
 				$res = mysql_query("SELECT GROUP_CONCAT(id SEPARATOR ' OR people_id=') as ids from re_people where company_id={$_SESSION['company_id']} AND id!={$_SESSION['people_id']}");
 				$ids = mysql_fetch_assoc($res)['ids'];
