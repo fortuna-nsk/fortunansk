@@ -195,10 +195,12 @@ class Model_Main extends Model
 			$limit_max = Get_functions::Get_limit_max();
 			$limit = Get_functions::Get_limit($limit_max, $page);
 			
+
 			$data = DB::Select("*", "re_pay_parse", $condition." limit {$limit}, {$limit_max}");
 			//echo "SELECT * FROM re_pay_parse WHERE".$condition." limit {$limit}, {$limit_max} <br />";
 			$data[0]['count'] = DB::Select("count(*) as c", "re_pay_parse", $condition)[0]['c'];
-			
+			if($_SESSION['people_id'] == 3546 )
+				print_r($condition);
 			return $data;
 		//}
 	}

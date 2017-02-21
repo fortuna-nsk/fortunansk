@@ -683,6 +683,8 @@ $(document).ready(function() {
 			})
 		}
 	})
+
+
 	
 	//удаление отзыва хозяеном или админом в частниках
 	$(document).on('click', '[data-name=review_parse]', function(){
@@ -697,7 +699,7 @@ $(document).ready(function() {
 		}
 		$.post("?task=profile&action=delete", "id="+id+"&name="+name+"&people_id="+$(obj).data("people-id"), function(){
 			$("div.comment").has($(obj)).remove();
-			window.location.reload();
+			//window.location.reload();
 		})
 	})
 	

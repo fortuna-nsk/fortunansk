@@ -230,19 +230,21 @@ class Model_Var extends Model
 	public function review_list_for_rielter()
 	{
 		if($_POST['id'] && $_SESSION['user']){
-			if($_SESSION['search_user_id']=="site" && $_POST['search_user_id']!="parse"){
-				$table = "re_review INNER JOIN re_people ON re_review.people_id = re_people.id INNER JOIN re_company ON re_company.id = re_people.company_id";
-				$condition = "var_id = ".$_POST['id']." AND anonymous = 0";
-				$columns = "re_review.id, people_id, review, anonymous, review_date, company_name, name, second_name";
-			}else if($_POST['search_user_id']=="pay_parse"){
+			if($_POST['search_user_id']=="pay_parse"){
 				$table = "re_review_pay_parse INNER JOIN re_people ON re_review_pay_parse.people_id = re_people.id INNER JOIN re_company ON re_company.id = re_people.company_id";
 				$condition = "parse_id = ".$_POST['id'];
 				$columns = "re_review_pay_parse.id, people_id, text as review, date as review_date, company_name, name, second_name";
-			}else{
+
+			}else if($_SESSION['search_user_id']=="site" && $_POST['search_user_id']!="parse"){
+				$table = "re_review INNER JOIN re_people ON re_review.people_id = re_people.id INNER JOIN re_company ON re_company.id = re_people.company_id";
+				$condition = "var_id = ".$_POST['id']." AND anonymous = 0";
+				$columns = "re_review.id, people_id, review, anonymous, review_date, company_name, name, second_name";
+			}else {
 				$table = "re_review_parse INNER JOIN re_people ON re_review_parse.people_id = re_people.id INNER JOIN re_company ON re_company.id = re_people.company_id";
 				$condition = "parse_id = ".$_POST['id'];
 				$columns = "re_review_parse.id, people_id, text as review, date as review_date, company_name, name, second_name";
 			}
+			// echo $table.$condition;
 			$data = DB::Select($columns, $table, $condition);
 			$num = count($data);
 			for($r=0; $r<$num; $r++){
@@ -251,8 +253,8 @@ class Model_Var extends Model
 					$varCount = DB::Select("count(DISTINCT r.id) as c", "re_review as r, re_people as p", "p.company_id={$_SESSION['company_id']} AND r.id = {$data[$r]['id']}")[0]['c'];
 					$myVar = $varCount>0;
 				}
-				$deleteBtn = (($data[$r]['people_id']==$_SESSION['people_id]'] || $_SESSION['admin']==1) 
-							&& $_SESSION['search_user_id']!="site") || $myVar
+				$deleteBtn = (($data[$r]['people_id']==$_SESSION['people_id]']) 
+							&& $_SESSION['search_user_id']!="site") || $myVar || $_SESSION['admin']==1
 							? "<span class='delete' data-name='review_parse' style='float: right;width: 65px;height: 25px;'>удалить</span>" 
 							: "";
 				echo "<div class='comment' data-id=".$data[$r]['id'].">

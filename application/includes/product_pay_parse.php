@@ -48,6 +48,11 @@ if($_SESSION["pay_parse_date_end"] > date("Y-m-d")){
 			$photo = str_replace($_SERVER['DOCUMENT_ROOT'], "", $photo_arr[0]);
 
 		}
+		$iconImage = '';
+		foreach ($icon as $key => $value) {
+			if(strpos($data[$j]['link'], $key))
+				$iconImage = $key;
+		}
 	?>
 		<div class="col-xs-12 product <?if($data[$j]['review']==1) echo "hasReview"?>" style="font-family: arial, verdana;font-size: 18px;line-height: normal;" data-coords="<?= $coords;?>" id="msg<?= $j; ?>" data-id='<?= $data[$j]['id'];?>' data-addr="НСО, <?= $data[$j]['live_point'].", ".$data[$j]['street']." д.".$data[$j]['house'];?>" data-user="pay_parse">
 			<table style="font-family: arial, verdana;font-size: 18px;line-height: normal;">
@@ -56,7 +61,8 @@ if($_SESSION["pay_parse_date_end"] > date("Y-m-d")){
 						<font size="2" style='margin-right: 25px;' data-id="last-edit"><?echo date("d/m/y", strtotime($data[$j]['date_last_edit']));?></font>
 						<br />
 						<?if(isset($data[$j]['link']) && $contacts){?>
-							<a href="<?=$data[$j]['link'];?>" data-name='contacts' data-id='new-window' style='font-size: 12px;margin-left: 15px;'><img src="<?=$icon[$data[$j]['origin']]?>" width="15"></a>
+							<a href="<?=$data[$j]['link'];?>" data-name='contacts' data-id='new-window' style='font-size: 12px;margin-left: 15px;'>
+								<img src="<?=$icon[$iconImage]?>" width="15"></a>
 						<?}?>
 						<br />
 						<div style="display: inline-block;margin-top: 10px;margin-left: 15px;">	

@@ -3,7 +3,7 @@ Class Helper
 {
 
 	static function company_pay_data($company_id){
-			$payment_sum = mysql_fetch_assoc(mysql_query("SELECT sum from re_payment where company_id = '".$_SESSION['company_id']."'"))['sum'];
+			$subscription = mysql_fetch_assoc(mysql_query("SELECT subscription from re_company where id = '".$_SESSION['company_id']."'"))['subscription'];
 			$balance = mysql_fetch_assoc(mysql_query("SELECT balance from re_company where id = '".$_SESSION['company_id']."'"))['balance'];
 			$rent_date_end = mysql_fetch_assoc(mysql_query("SELECT rent_date_end from re_access_date_end where id = '".$_SESSION['company_id']."'"))['rent_date_end'];
 
@@ -14,11 +14,13 @@ Class Helper
 		$url = explode('&', $_SERVER['REQUEST_URI']);
 		$controller = explode('=', $url[0])[1];
 		$action = explode('=', $url[1])[1];
+
 		if(isset($_SESSION['rent_date_end']) && $_SESSION['rent_date_end'] < $now->format('Y-m-d')){
-			$payment_sum = mysql_fetch_assoc(mysql_query("SELECT sum from re_payment where company_id = '".$_SESSION['company_id']."'"))['sum'];
-			$balance = mysql_fetch_assoc(mysql_query("SELECT balance from re_company where id = '".$_SESSION['company_id']."'"))['balance'];
+			$subscription = mysql_fetch_assoc(mysql_query("SELECT subscription from re_company where id = '".$_SESSION['company_id']."'"))['subscription'];
+			$balance = mysql_fetch_assoc(mysql_query("SELECT balance from re_company where id = '".$_SESSION['company_id']."'"))['balance'];					
 			if( $controller=='profile' && ($action == 'order' || $action == 'order_txt' || $action == "services")  ){
-				if($balance <= $payment_sum && $action == "services")
+				echo $balance ."". $subscription;
+				if($balance < $subscription && $action == "services")
 					header("Location: http://". $_SERVER['SERVER_NAME'].'/?task=profile&action=order_txt');	
 				return true;
 			}else{
@@ -457,7 +459,11 @@ Class Helper
 		$sq = 0;
 		$p = 0;
 		foreach($_GET as $k=>$v){
-			if($k!="task" && $k!="action" && !ereg('Выбрано', $v) && $k!="residents" && $k!="order" && $k!="search_user_id" && $k!="hours" && $k!="view_type" && $k != "company_id" && $k != "page" && $k != "limit" && $k!="view_type" && $k!="residents" && $k!="without_cont"&& $k!="id"&& $k!="race_now"){
+			if($k!="task" && $k!="action" 
+				&& !ereg('Выбрано', $v) && $k!="residents" && $k!="order" && $k!="search_user_id" 
+				&& $k!="hours" && $k!="view_type" && $k != "company_id" && $k != "page" && $k != "limit" 
+				&& $k!="view_type" && $k!="residents" && $k!="without_cont"&& $k!="id"&& $k!="race_now" && $k!="origin"){
+
 				if(ereg('room_count', $k) && $v!=""){
 					if($_GET['action']!="parse"){
 						$room_count.="{$v}||";
@@ -520,6 +526,8 @@ Class Helper
 			if($room_count!="")$condition .= Helper::MultiCondition("type_id='".$room_count, "' OR type_id='");
 		}
 		if($dis!="")$condition .= Helper::MultiCondition("dis='".$dis, "' OR dis='");
+
+		if($_GET['origin']!="") $condition .= " AND `link` LIKE '%{$_GET['origin']}%' ";
 
 		//if($street!="")$condition .= Helper::MultiCondition("street = '".$street, "' OR street = '", "'");
 		if($street!="")$condition .= Helper::MultiCondition("street = '".$street, "' OR street = '", "'");

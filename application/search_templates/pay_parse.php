@@ -32,6 +32,15 @@
 			<div class="col-xs-2 deployed">
 				<input class="form-control" type="text" name="phone" placeholder="телефон" value="<?=Helper::FilterVal('phone')?>">
 			</div>
+			<?php if($_SESSION['admin']==1) {
+				?>
+			<div class="col-xs-2 deployed">
+				<input class="" type="checkbox" name="review" placeholder="" value="1" <?php if (Helper::FilterVal('review')==1) echo "checked"; ?>>
+			</div>
+			<?php 
+			}
+			?>
+
 		</div>
 	</div>
 	<hr>	
