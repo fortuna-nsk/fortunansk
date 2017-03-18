@@ -15,7 +15,7 @@ Class Helper
 		$controller = explode('=', $url[0])[1];
 		$action = explode('=', $url[1])[1];
 
-		if(isset($_SESSION['rent_date_end']) && $_SESSION['rent_date_end'] < $now->format('Y-m-d')){
+		if(isset($_SESSION['rent_date_end']) && $_SESSION['rent_date_end'] <= $now->format('Y-m-d')){
 			$subscription = mysql_fetch_assoc(mysql_query("SELECT subscription from re_company where id = '".$_SESSION['company_id']."'"))['subscription'];
 			$balance = mysql_fetch_assoc(mysql_query("SELECT balance from re_company where id = '".$_SESSION['company_id']."'"))['balance'];					
 			if( $controller=='profile' && ($action == 'order' || $action == 'order_txt' || $action == "services")  ){

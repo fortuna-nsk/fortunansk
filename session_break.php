@@ -9,18 +9,26 @@
 	mysql_query("SET NAMES utf8", $db1);
 	mysql_query("SET time_zone = '+07:00'", $db1);
 	$sessionDir = '/var/www/fortuna/sessions/';
+
 	/**
 	 * проверка активности раз в 3 часа
 	 */
-	$querySession = "SELECT c.id, c.fortuna_mid, c.company_name, a.rent_date_end, a.sell_date_end, a.pay_parse_date_end, s.date_update, s.name,s.id
-					FROM re_company as c, re_access_date_end as a, re_session as s, re_people as p
-				  	WHERE 
-				  		 c.id = a.company_id 
-				  		 AND p.company_id = c.id 
-				  		 AND s.people_id = p.id 
+	$querySession = "SELECT 
+						c.id, c.fortuna_mid, c.company_name, s.date_update, s.name, s.id
+					FROM
+							 re_company as c
+						JOIN re_access_date_end as a ON a.company_id = c.id
+						JOIN re_people as p ON p.company_id = c.id
+						JOIN re_session as s ON p.id = s.people_id
+				  	WHERE
+				  	 	c.company_name!='' 
 				  		 AND DATE_FORMAT(DATE_ADD(NOW(), INTERVAL -3 HOUR), '%Y%m%d%H%i%s') > DATE_FORMAT(s.date_update, '%Y%m%d%H%i%s') 
-				  		 AND company_name!=''";
+				  		 
+						 
+		  		 ";
+
 	$res = mysql_query($querySession);
+
 	if (mysql_num_rows($res) > 0){		
 	  while ($session = mysql_fetch_array($res)){ 
     	mysql_query("DELETE FROM `re_session` WHERE `id` = {$session['id']}");
@@ -32,13 +40,13 @@
 	 * Ночное обнуление
 	 */
     if(isset($argv[1]) && $argv[1] == 'night_null'){
-		$res = mysql_query("DELETE FROM `re_session` WHERE 1", $db1);
+		$res = mysql_query("DELETE FROM `re_session` ", $db1);
 		$dh = opendir($sessionDir);
 		while ($file = readdir($dh)){
 			if($file != "." && $file!="..")
 				unlink($sessionDir.$file);
 	    }
-		$res = mysql_query("UPDATE `re_people` SET `photo_limit_used` =  0 WHERE 1", $db1);
+		$res = mysql_query("UPDATE `re_people` SET `photo_limit_used` =  0 ", $db1);
 	}
 
 ?>
